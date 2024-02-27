@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  semar-db:
+    image: postgres:13
+    ports:
+      - '5432:5432'
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: 'semar'
+      POSTGRES_PASSWORD: 'dev123'
+volumes:
+  db_data:
