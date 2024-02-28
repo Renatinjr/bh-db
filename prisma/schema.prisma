@@ -13,7 +13,305 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model Product {
-id String @id @default(uuid())
-createdAt DateTime @default(now())
+  id String               @id
+  is_simple IsZeroOne     @default("0")
+  parent_id String
+  cod String
+  digital String
+  produto String
+  produto_url String
+  video String
+  url_download String
+  link_externo String
+  caracteristicas String
+  descricao String
+  especificacoes String
+  itens_inclusos String
+  garantia String
+  peso String
+  comprimento String
+  largura String
+  altura String
+  valor_promo String
+  data_promo_de String
+  data_promo String
+  multiplo String
+  equivalencia Equivalencia? @relation(fields: [equivalenciaId], references: [id])
+  equivalenciaId String?
+  equivalencia_tamanho String
+  equivalencia_cor String
+  equivalencia_fundo String
+  ativo String
+  venda String
+  oculto String
+  frete_gratis String
+  palavras_substitutas String
+  prazo_producao String
+  categorias_adicionais String
+  foto String
+  tipo_fotos String
+  ncm String
+  mpn String
+  gtin String
+  genero Genero? @relation(fields: [generoId], references: [id])
+  generoId String?
+  modelagem Modelagem? @relation(fields: [modelagemId], references: [id])
+  modelagemId String?
+  grupo_etario GrupoEtario? @relation(fields: [grupoEtarioId], references: [id])
+  grupoEtarioId String?
+  marca String[]
+  atributos String
+  tabela_preco TabelaPreco @relation(fields: [tabelaPrecoId], references: [id])
+  tabelaPrecoId String
+  campos_adicionais String
+  curtidas String
+  quantidade_total_em_estoque String
+  grade_tipo String
+  selos String
+  relacionados String
+  campo_anotacao String
+  valor_unidade_tipo String
+  owner_id String
+  created String
+  updated String
+  estoque_cor_id String
+  estoque_id String
+  tabela_medidas TabelaMedidas? @relation(fields: [tabelaMedidasId], references: [id])
+  tabelaMedidasId String?
+  permite_embalagem String
+  permite_arquivo String
+  permite_recorrencia String
+  valores_base ValoresBase @relation(fields: [valoresBaseId], references: [id])
+  valoresBaseId String
+  seo_title String
+  seo_description String
+  seo_metatags String
+  seo_scripts String
+  seo_banner SeoBanner @relation(fields: [seoBannerId], references: [id])
+  seoBannerId String
+  nome_cor String
+  formato_cor String
+  termo_agrupador String
+  total_comentarios String
+  comentarios_media String
+  marketplace_has_outros_anuncios String
+  campos_adicionais_raw String
+  categoria_level1 CategoriaLevel1 @relation(fields: [categoriaLevel1Id], references: [id])
+  categoriaLevel1Id String
+  categoria_level2 CategoriaLevel2 @relation(fields: [categoriaLevel2Id], references: [id])
+  categoriaLevel2Id String
+  categoria_level3 CategoriaLevel3 @relation(fields: [categoriaLevel3Id], references: [id])
+  categoriaLevel3Id String
+  google_category String
+  site_category String
+  embalagem Embalagem? @relation(fields: [embalagemId], references: [id])
+  embalagemId String?
+  combo String[]
+  personalizador String[]
+  isPromo String
+  cat_add String
+  biquini String[]
+  produto_online String
+  adicional_info String[]
+  url_relative String
+  url_absolute String
+  isChild String
+  is_schedule String
+  estoque Estoque[]
+  quantidade_total_variacoes String
+  fotos Foto[]
+  quantidade_total_visualizacoes String
+  loja Loja @relation(fields: [lojaId], references: [id])
+  lojaId String
+}
+
+
+model Equivalencia {
+  id String @id
+  tipo String
+  qtd String
+  tamanho String
+  cor String
+  fundo String
+}
+
+model Genero {
+  id String @id
+  tipo String
+  nome String
+}
+
+model Modelagem {
+  id String @id
+  tipo String
+  nome String
+}
+
+model GrupoEtario {
+  id String @id
+  tipo String
+  nome String
+}
+
+model TabelaPreco {
+  id String @id
+  tabela String
+}
+
+model Embalagem {
+  id String @id
+  sigla String
+  nome String
+}
+
+model ValoresBase {
+  id String @id
+  varejo String
+  comparativo String
+  custo String
+  atacado String
+  atacadomin String
+  valorpromo String
+  data_promo_de String
+  data_promo String
+}
+
+model SeoBanner {
+  id String @id
+  banner String
+  banner_mobile String
+  link String
+  folder String
+}
+
+model CategoriaLevel1 {
+  id String @id
+  nome String
+  url String
+  tabela String
+  google_category String
+}
+
+model CategoriaLevel2 {
+  id String @id
+  nome String
+  url String
+  google_category String
+}
+
+model CategoriaLevel3 {
+  id String @id
+  nome String
+  url String
+  google_category String
+}
+
+model Estoque {
+  id String @id
+  sku String
+  cod_estoque String
+  peso String
+  comprimento String
+  largura String
+  altura String
+  visualizacoes String
+  ativo String
+  variacao_posicao String
+  preco_custo String
+  qtd_maxima String
+  gtin String
+  atributos String[]
+  reserva String[]
+  erp_id String
+  prazo_producao String
+  quantidade_em_estoque String
+  cor Cor? @relation(fields: [corId], references: [id])
+  corId String?
+  variacao Variacao? @relation(fields: [variacaoId], references: [id])
+  variacaoId String?
+  adicional_info String[]
+  valores Valores[]
+  fotos Foto[]
+  product Product @relation(fields: [productId], references: [id])
+  productId String
+}
+
+model Cor {
+  id String @id
+  nome String
+  primaria String
+  secundaria String
+  img String
+  ativo String
+  posicao String
+}
+
+model Variacao {
+  id String @id
+  variacao_id String
+  nome String
+  valor String
+  posicao String
+  ativo String
+}
+
+model Valores {
+  id String @id
+  tabela_id String
+  tabela_nome String
+  quantidade_minima String
+  valor String
+  valor_promo String
+  data_promo_de String
+  data_promo String
+  codigo String
+  valor_comparativo String
+  isPromo String
+  valor_loja String[]
+  estoque Estoque @relation(fields: [estoqueId], references: [id])
+  estoqueId String
+}
+
+model Foto {
+  id String @id
+  cor_id String
+  codigo String
+  foto String
+  legenda String
+  oculto String
+  video String
+  foto_mini String
+  product Product? @relation(fields: [productId], references: [id])
+  productId String?
+  estoque Estoque? @relation(fields: [estoqueId], references: [id])
+  estoqueId String?
+}
+
+model Loja {
+  id String @id
+  identificacao String
+  cidade String
+  uf String
+  multiloja String
+  multicd String
+  nome String
+  cep_origem String
+  url String
+  url_interna_matriz String
+  logo String
+  isFilial String
+}
+
+model TabelaMedidas {
+  id String @id
+  tipo String @db.Char(50)
+  titulo String @db.Char(30)
+  imagem String @db.Char(255)
+}
+
+enum IsZeroOne {
+  ZERO @map("0")
+  ONE @map("1")
 }
