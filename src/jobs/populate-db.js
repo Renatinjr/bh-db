@@ -1,14 +1,11 @@
-const fetchProducts = require("../services/fetch-wbuy");
-const { PrismaClient } = require("@prisma/client");
+const { fetchProducts } = require("../services/fetch-wbuy");
 const { SemarModel } = require("../models/CustomSemarProducts.model");
-const prisma = new PrismaClient();
 
 async function createMany(data) {
-  //return prisma.$transaction([prisma.product.createMany({ data: data })]);
   return SemarModel.insertMany(data);
 }
 
-const populateDb = async function () {
+const populateDb = async function() {
   try {
     let last_request_state = 0;
     let limit = 100;
@@ -20,6 +17,7 @@ const populateDb = async function () {
     let retrived_results = limit;
     last_request_state = limit;
     const { total, data: products } = data;
+    await SemarModel.deleteMany({});
 
     products.forEach((element) => {
       const {
