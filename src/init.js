@@ -5,7 +5,6 @@ const populateClientes = require("./jobs/populate-db-clientes");
 
 const { URI } = env;
 async function init() {
-  console.log(URI);
   mongoose
     .connect(URI)
     .then(() => console.log("Conectado"))
