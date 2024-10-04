@@ -14,5 +14,5 @@ async function init() {
 }
 
 init()
-  .then(() => console.log("Init finished"))
+  .then(() => console.log("Inserção concluida", new Date()))
   .catch((err) => console.error("Erro", err));
