@@ -7,6 +7,7 @@ const clienteSchema = new mongoose.Schema({
   tabela_id: {
     type: "String",
   },
+  cliente_id: { type: mongoose.Types.ObjectId },
   tabela_nome: {
     type: "String",
   },
@@ -18,6 +19,8 @@ const clienteSchema = new mongoose.Schema({
   },
   doc1: {
     type: "String",
+    required: true,
+    unique: true,
   },
   doc2: {
     type: "String",
@@ -66,8 +69,9 @@ const clienteSchema = new mongoose.Schema({
   },
 });
 
-const SemarModelClientes = mongoose.model(
-  "custom_semar_clientes",
-  clienteSchema,
-);
-module.exports = { SemarModelClientes };
+const getClienteModel = (_clientName) => {
+  const collectionName = `custom_wbuy_clientes`;
+  return mongoose.model(collectionName, clienteSchema);
+};
+
+module.exports = { getClienteModel };

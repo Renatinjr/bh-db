@@ -1,7 +1,7 @@
 const { default: mongoose } = require("mongoose");
-const populateDb = require("./jobs/populate-db");
 const { env } = require("node:process");
-const populateClientes = require("./jobs/populate-db-clientes");
+const multiSyncProducts = require("./jobs/multi-sync-products");
+const multiSyncClientes = require("./jobs/multi-sync-clientes");
 
 const { URI } = env;
 async function init() {
@@ -9,8 +9,8 @@ async function init() {
     .connect(URI)
     .then(() => console.log("Conectado"))
     .catch(() => console.log("Erro ao conectar"));
-  await populateDb();
-  await populateClientes();
+  await multiSyncProducts();
+  await multiSyncClientes();
 }
 
 init()

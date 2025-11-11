@@ -55,11 +55,16 @@ const SemarSchema = new mongoose.Schema({
   cod: { type: String, required: true },
   precos: { type: [precoSchema], required: true },
   estoque: { type: Number, required: true },
+  cliente_id: { type: mongoose.Types.ObjectId },
   qtd_un: Number,
   tags: Array,
   categoria: String,
   foto: String,
 });
 
-const SemarModel = mongoose.model("custom_semar_products", SemarSchema);
-module.exports = { SemarModel };
+const getProductModel = (_clientName) => {
+  const collectionName = `custom_wbuy_products`;
+  return mongoose.model(collectionName, SemarSchema);
+};
+
+module.exports = { getProductModel };
